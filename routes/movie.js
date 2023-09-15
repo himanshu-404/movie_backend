@@ -1,14 +1,15 @@
-const express = require("express");
+const express = require('express');
+
 const router = express.Router();
 
 // import watchList controllers
 const {
   getAllMovies,
   getMovieById,
-} = require("../controller/moviesController");
+} = require('../controller/moviesController');
 
 // use all routes
-router.get("/", getAllMovies);
-router.get("/:id", getMovieById);
+router.get('/', getAllMovies);
+router.get('/:id', getMovieById);
 
 module.exports = router;

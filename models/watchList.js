@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
 const { Mixed, String, Boolean } = mongoose.Schema.Types;
 
 const whatchListSchema = mongoose.Schema(
@@ -20,8 +21,8 @@ const whatchListSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const WatchList = new mongoose.model("watchList", whatchListSchema);
+const WatchList = mongoose.model('watchList', whatchListSchema);
 module.exports = WatchList;

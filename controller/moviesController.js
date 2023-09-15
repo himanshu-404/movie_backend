@@ -1,18 +1,19 @@
+const joi = require('joi');
 const {
   getAllMovieService,
   getMovieByIdService,
-} = require("../business_rule/movie");
+} = require('../business_rule/movie');
 const {
   responseError,
   responseInValidArgument,
-} = require("../common/commonFunctions");
-const joi = require("joi");
+} = require('../common/commonFunctions');
 
 const getAllMovies = async (req, res) => {
   try {
-    //validate query params
+    // validate query params
     const validateParams = joi.object({
-      page: joi.number().required().min(1).max(500).default(1),
+      page: joi.number().required().min(1).max(500)
+        .default(1),
     });
 
     const { error } = validateParams.validate(req.query);
@@ -29,7 +30,7 @@ const getAllMovies = async (req, res) => {
 
 const getMovieById = async (req, res) => {
   try {
-    //validate params
+    // validate params
     const validateParams = joi.object({
       id: joi.string().required().min(1).max(500),
     });

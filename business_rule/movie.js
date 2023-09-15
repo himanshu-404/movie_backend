@@ -1,30 +1,28 @@
-const { default: axios } = require("axios");
-const { responseData, responseError } = require("../common/commonFunctions");
+const { default: axios } = require('axios');
+const { responseData, responseError } = require('../common/commonFunctions');
 
 const getAllMovieService = async (req, res) => {
   try {
     const { page } = req.query;
 
     const { data } = await axios.get(
-      `${process.env.BASE_URL}/discover/movie?api_key=${process.env.API_KEY}&page=${page}`
+      `${process.env.BASE_URL}/discover/movie?api_key=${process.env.API_KEY}&page=${page}`,
     );
 
     if (!data.results.length) {
-      return responseData(res, 404, [], "Data not found");
+      return responseData(res, 404, [], 'Data not found');
     }
 
-    const result = data.results.map((item) => {
-      return {
-        id: item.id,
-        title: item.title,
-        overview: item.overview,
-        poster_path: item.poster_path,
-        popularity: item.popularity,
-        release_date: item.release_date,
-      };
-    });
+    const result = data.results.map((item) => ({
+      id: item.id,
+      title: item.title,
+      overview: item.overview,
+      poster_path: item.poster_path,
+      popularity: item.popularity,
+      release_date: item.release_date,
+    }));
 
-    return responseData(res, 200, result, "Success");
+    return responseData(res, 200, result, 'Success');
   } catch (error) {
     return responseError(res, error);
   }
@@ -33,11 +31,11 @@ const getAllMovieService = async (req, res) => {
 const getMovieByIdService = async (res, movieId) => {
   try {
     const { data } = await axios.get(
-      `${process.env.BASE_URL}/movie/${movieId}?api_key=${process.env.API_KEY}`
+      `${process.env.BASE_URL}/movie/${movieId}?api_key=${process.env.API_KEY}`,
     );
 
     if (!data) {
-      return responseData(res, 404, {}, "Data not found");
+      return responseData(res, 404, {}, 'Data not found');
     }
 
     const result = {
@@ -49,7 +47,7 @@ const getMovieByIdService = async (res, movieId) => {
       release_date: data.release_date,
     };
 
-    return responseData(res, 200, result, "Success");
+    return responseData(res, 200, result, 'Success');
   } catch (error) {
     return responseError(res, error);
   }

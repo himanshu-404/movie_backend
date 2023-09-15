@@ -1,0 +1,9 @@
+{
+  "extends": ["airbnb-base"],
+  "rules": {
+    "no-console": "off",
+    "func-name-matching": "error",
+    "func-names": "error",
+    "no-unused-vars": ["error"]
+  }
+}

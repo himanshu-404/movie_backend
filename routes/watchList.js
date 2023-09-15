@@ -1,4 +1,5 @@
-const express = require("express");
+const express = require('express');
+
 const router = express.Router();
 
 // import movie controllers
@@ -7,15 +8,15 @@ const {
   addMovieToWatchList,
   removeMovieToWatchList,
   updateMovieToWatchList,
-} = require("../controller/watchListController");
+} = require('../controller/watchListController');
 
 // use all routes
 router
-  .route("/")
+  .route('/')
   .get(getMyWatchList)
   .post(addMovieToWatchList)
   .put(updateMovieToWatchList);
 
-router.route("/:id").delete(removeMovieToWatchList);
+router.route('/:id').delete(removeMovieToWatchList);
 
 module.exports = router;

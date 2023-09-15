@@ -1,14 +1,14 @@
+const joi = require('joi');
 const {
   getMyWatchListService,
   addMovieToWatchListService,
   removeMovieFromWatchListService,
   updateMovieToWatchListService,
-} = require("../business_rule/watchList");
+} = require('../business_rule/watchList');
 const {
   responseInValidArgument,
   responseError,
-} = require("../common/commonFunctions");
-const joi = require("joi");
+} = require('../common/commonFunctions');
 
 const getMyWatchList = async (req, res) => {
   try {
