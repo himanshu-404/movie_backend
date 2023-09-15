@@ -1,4 +1,13 @@
 const responseError = (res, error) => {
+  //to handle error from axios
+  if (error.response && error.response.data) {
+    return res.status(error.response.status).json({
+      data: null,
+      status: false,
+      message: error.response.data.status_message || "Internal Server Error",
+    });
+  }
+
   return res.status(500).json({
     data: null,
     status: false,
@@ -21,4 +30,12 @@ const responseData = (
   });
 };
 
-module.exports = { responseError, responseData };
+const responseInValidArgument = (res, error) => {
+  return res.status(400).json({
+    data: null,
+    status: false,
+    message: error.details.map((item) => item.message).join(", "),
+  });
+};
+
+module.exports = { responseError, responseData, responseInValidArgument };

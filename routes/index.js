@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Hello World");
-});
+// import all routes
+const movie = require("./movie");
+
+// use all routes
+router.use("/movie", movie);
 
 module.exports = router;

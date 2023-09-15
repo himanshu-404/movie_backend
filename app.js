@@ -4,8 +4,6 @@ const cors = require("cors");
 require("dotenv").config();
 const app = express();
 
-const movie = require("./models/watchList");
-
 //db connection
 require("./config/db")();
 
@@ -22,7 +20,7 @@ app.use(
 );
 
 // require all Routes
-app.get("/", require("./routes"));
+app.use("/", require("./routes"));
 
 const port = process.env.PORT || 5000;
 
