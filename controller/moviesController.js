@@ -40,7 +40,7 @@ const getMovieById = async (req, res) => {
       return responseInValidArgument(res, error);
     }
 
-    return await getMovieByIdService(req, res);
+    return await getMovieByIdService(res, req.params.id);
   } catch (error) {
     return responseError(res, error);
   }

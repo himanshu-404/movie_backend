@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const compression = require("compression");
 const app = express();
 
 //db connection
@@ -10,6 +11,7 @@ require("./config/db")();
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(compression()); //used for compressing the response body
 
 //cors config
 app.use(

@@ -30,16 +30,14 @@ const getAllMovieService = async (req, res) => {
   }
 };
 
-const getMovieByIdService = async (req, res) => {
+const getMovieByIdService = async (res, movieId) => {
   try {
-    const { id } = req.params;
-
     const { data } = await axios.get(
-      `${process.env.BASE_URL}/movie/${id}?api_key=${process.env.API_KEY}`
+      `${process.env.BASE_URL}/movie/${movieId}?api_key=${process.env.API_KEY}`
     );
 
     if (!data) {
-      return responseData(res, 404, [], "Data not found");
+      return responseData(res, 404, {}, "Data not found");
     }
 
     const result = {

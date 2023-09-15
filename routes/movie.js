@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-// import movie controllers
+// import watchList controllers
 const {
   getAllMovies,
   getMovieById,
