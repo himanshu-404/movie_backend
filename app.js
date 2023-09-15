@@ -1,10 +1,28 @@
+//importing modules
 const express = require("express");
+const cors = require("cors");
 require("dotenv").config();
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+const movie = require("./models/watchList");
+
+//db connection
+require("./config/db")();
+
+//middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//cors config
+app.use(
+  cors({
+    origin: "*", // allow to server to accept request from different origin -->  replace * with your origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], //allowing methods
+  })
+);
+
+// require all Routes
+app.get("/", require("./routes"));
 
 const port = process.env.PORT || 5000;
 
