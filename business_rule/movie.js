@@ -21,6 +21,7 @@ const getAllMovieService = async (req, res) => {
       popularity: item.popularity,
       release_date: item.release_date,
       vote_average: item.vote_average,
+      original_language: item.original_language,
     }));
 
     return responseData(res, 200, result, 'Success');
