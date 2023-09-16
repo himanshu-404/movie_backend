@@ -22,6 +22,9 @@ app.use(
   }),
 );
 
+// im-memory cache for movieId
+global.movies = {};
+
 // require all Routes
 app.use('/', require('./routes'));
 

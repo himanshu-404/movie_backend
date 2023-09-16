@@ -6,7 +6,7 @@ const getAllMovieService = async (req, res) => {
     const { page } = req.query;
 
     const { data } = await axios.get(
-      `${process.env.BASE_URL}/discover/movie?api_key=${process.env.API_KEY}&page=${page}`,
+      `${process.env.BASE_URL}/discover/movie?api_key=${process.env.API_KEY}&page=${page}&sort_by=vote_average.desc&vote_count.gte=500`,
     );
 
     if (!data.results.length) {
@@ -20,6 +20,7 @@ const getAllMovieService = async (req, res) => {
       poster_path: item.poster_path,
       popularity: item.popularity,
       release_date: item.release_date,
+      vote_average: item.vote_average,
     }));
 
     return responseData(res, 200, result, 'Success');
@@ -30,24 +31,22 @@ const getAllMovieService = async (req, res) => {
 
 const getMovieByIdService = async (res, movieId) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.BASE_URL}/movie/${movieId}?api_key=${process.env.API_KEY}`,
-    );
+    // impelementasi cache (memory cache) --> we can use database as well
 
-    if (!data) {
-      return responseData(res, 404, {}, 'Data not found');
+    if (!global.movies[movieId]) {
+      const { data } = await axios.get(
+        `${process.env.BASE_URL}/movie/${movieId}?api_key=${process.env.API_KEY}`,
+      );
+
+      if (!data) {
+        return responseData(res, 404, {}, 'Data not found');
+      }
+
+      global.movieId = data;
+
+      return responseData(res, 200, data, 'Success');
     }
-
-    const result = {
-      id: data.id,
-      title: data.title,
-      overview: data.overview,
-      poster_path: data.poster_path,
-      popularity: data.popularity,
-      release_date: data.release_date,
-    };
-
-    return responseData(res, 200, result, 'Success');
+    return responseData(res, 200, global.movieId, 'Success');
   } catch (error) {
     return responseError(res, error);
   }
